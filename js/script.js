@@ -36,7 +36,7 @@ class EntidadeBibliografica {
             if (this.emprestado !== true){
                 alert('Impossivel devolver item não emprestado.')
             }else{
-                alert('Livro devolvido com sucesso.')
+                alert('Item devolvido com sucesso.')
                 this.emprestado = false
                 this.usuarioEmprestimo = null
             }
@@ -56,12 +56,8 @@ class Livro extends EntidadeBibliografica {
     }
 
     informacao(){
-        alert(`Código:${this.codigo}
-               Título:${this.titulo}
-               Autor: ${this.autor}
-               Ano de Publicação: ${this.anoPublicacao}
-               Usuário emprestado: ${biblioteca.usuarioEmprestimo}
-               Gênero: ${this.genero}`)
+        const usuarioEmprestimoInfo = this.emprestado ? this.usuarioEmprestimo.nome : 'Não emprestado';
+        alert(`Código: ${this.codigo}\nTítulo: ${this.titulo}\nAutor: ${this.autor}\nAno de Publicação: ${this.anoPublicacao}\nUsuário emprestado: ${usuarioEmprestimoInfo}\nGênero: ${this.genero}`);
     }
 
 }
@@ -79,12 +75,8 @@ class Revista extends EntidadeBibliografica {
     }
 
     informacao(){
-        alert(`Código:${this.codigo}
-               Título:${this.titulo}
-               Autor: ${this.autor}
-               Ano de Publicação: ${this.anoPublicacao}
-               Usuário emprestado: ${biblioteca.usuarioEmprestimo}
-               Edição: ${this.edicao}`)
+        const usuarioEmprestimoInfo = this.emprestado ? this.usuarioEmprestimo.nome : 'Não emprestado';
+        alert(`Código: ${this.codigo}\nTítulo: ${this.titulo}\nAutor: ${this.autor}\nAno de Publicação: ${this.anoPublicacao}\nUsuário emprestado: ${usuarioEmprestimoInfo}\nEdição: ${this.edicao}`);
     }
 
 }
@@ -126,14 +118,14 @@ class Biblioteca {
     }
 
 listarUsuarios() {
-    let userInfo = "Usuários cadastrados:"
+    let userInfo = "Usuários cadastrados:\n"
     const usuariosCadastrados = this.usuarios
 
     if (usuariosCadastrados.length === 0) {
         alert('Não há usuários cadastrados!');
     } else {
         usuariosCadastrados.forEach(item => {
-            userInfo += (`-> ${item.nome} RA: ${item.registroAcademico}`);
+            userInfo += (`-> ${item.nome} RA: ${item.registroAcademico}\n`);
         });
         alert(userInfo)
     }
@@ -146,7 +138,7 @@ listarUsuarios() {
     emprestarItem(codigo, registroAcademico){
         console.log(`Tentando emprestar item com código ${codigo} para o usuário com RA ${registroAcademico}`);
     console.log('Acervo:', this.acervo); // Verificar se há itens no acervo
-        const item = this.acervo.find(item => item.codigo === codigo);
+        const item = this.acervo.find(item => item.codigo.toUpperCase() === codigo.toUpperCase());
     
         if (item){
             const usuarioEmprestimo = this.usuarios.find(usuario => usuario.registroAcademico === registroAcademico);
@@ -163,12 +155,10 @@ listarUsuarios() {
     }
     
     devolverItem(codigo){
-        const item = this.acervo.find(item => item.codigo === codigo)
+        const item = this.acervo.find(item => item.codigo.toUpperCase() === codigo.toUpperCase())
 
         if(item){
             item.devolver()
-            alert(`Item com código ${codigo} devolvido
-            ao acervo.`)
         }else{
             alert(`Item com código ${codigo} 
             não encontrado no acervo.`)
@@ -262,7 +252,7 @@ function devolverItemInterativo() {
 
 function informacaoPrompt() {
     const codigo = prompt('Digite o código do item:')
-    const item = biblioteca.acervo.find(item => item.codigo === codigo)
+    const item = biblioteca.acervo.find(item => item.codigo.toUpperCase() === codigo.toUpperCase())
 
 if (!item){
     alert('Item não encontrado')
