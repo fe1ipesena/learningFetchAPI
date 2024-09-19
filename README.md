@@ -1,126 +1,123 @@
-# learningFetchAPI
+# Sistema de Biblioteca em JavaScript
 
-https://bibliotecaminha.netlify.app
+Este projeto foi desenvolvido com o objetivo de praticar a utilização da Fetch API e a programação orientada a objetos (POO) em JavaScript. O sistema simula uma biblioteca, onde é possível gerenciar o acervo de livros e revistas, realizar empréstimos e devoluções, além de cadastrar usuários.
 
-Sistema de Biblioteca em JavaScript
+## 📚 Funcionalidades do Sistema
 
+1. **Gerenciamento de Acervo**:
+   - Adicionar livros e revistas ao acervo utilizando a API [https://api-biblioteca-mb6w.onrender.com/acervo](https://api-biblioteca-mb6w.onrender.com/acervo).
+   - Listar todos os itens do acervo, incluindo detalhes como título, autor, ano de publicação e disponibilidade para empréstimo.
 
+2. **Empréstimos e Devoluções**:
+   - Empréstimo de livros e revistas para usuários cadastrados.
+   - Devolução de itens emprestados ao acervo.
 
-Este projeto tem como objetivo praticar a programação orientada a objetos, trabalhando com classes, herança, e interação entre objetos.
+3. **Gerenciamento de Usuários**:
+   - Adicionar novos usuários, informando nome, registro acadêmico e data de nascimento.
+   - Associar usuários aos itens emprestados.
 
+## 🛠️ Estrutura de Classes
 
+### EntidadeBibliografica
+Classe base que define os atributos e métodos comuns para livros e revistas.
 
-Crie uma classe base chamada EntidadeBibliografica com os seguintes atributos:
+- **Atributos**:
+  - `titulo`
+  - `autor`
+  - `anoPublicacao`
+  - `codigo`
+  - `emprestado` (booleano)
+  - `usuarioEmprestimo` (objeto `Usuario`, ou `null` se não estiver emprestado)
 
+- **Métodos**:
+  - `emprestar(usuario)`
+  - `devolver()`
 
+### Livro (herda de EntidadeBibliografica)
+Classe que representa um livro com um atributo adicional de gênero.
 
-Atributos:
+- **Atributos**:
+  - `genero`
 
--titulo
+- **Métodos**:
+  - `informacoes()`
 
--autor
+### Revista (herda de EntidadeBibliografica)
+Classe que representa uma revista com um atributo adicional de edição.
 
--anoPublicacao
+- **Atributos**:
+  - `edicao`
 
--codigo
+- **Métodos**:
+  - `informacoes()`
 
--emprestado: booleano
+### Usuario
+Classe que define os usuários da biblioteca.
 
--usuarioEmprestimo: usuário (objeto) que pegou emprestado (null se não estiver emprestado)
+- **Atributos**:
+  - `nome`
+  - `registroAcademico`
+  - `dataNascimento`
 
-Métodos:
+### Biblioteca
+Classe que gerencia o acervo e os usuários da biblioteca.
 
-+emprestar(usuario)
+- **Atributos**:
+  - `acervo` (array para armazenar os itens)
+  - `usuarios` (array para armazenar os usuários)
 
-+devolver()
+- **Métodos**:
+  - `adicionarItem(item)`
+  - `listarAcervo()`
+  - `adicionarUsuario(usuario)`
+  - `emprestarItem(codigo, registroAcademico)`
+  - `devolverItem(codigo)`
 
+## 🚀 Tecnologias Utilizadas
 
+- **JavaScript**: Para implementar a lógica da aplicação e a interação com a API.
+- **Fetch API**: Para realizar as requisições à API externa que fornece os livros e revistas.
+- **HTML/CSS**: Para estruturar e estilizar o front-end da aplicação.
+- **Netlify**: Plataforma de deploy utilizada para hospedar o projeto.
 
-Crie duas classes que herdam de EntidadeBibliografica: Livro e Revista. A classe Livro deve ter um atributo adicional chamado genero.
+## 🎮 Como Executar o Projeto
 
+Você pode acessar o projeto online através do link: [Biblioteca Minha](https://bibliotecaminha.netlify.app)
 
+Ou, se preferir, seguir os passos abaixo para rodar localmente:
 
-Livro
+1. Clone o repositório:
+   ```
+   git clone https://github.com/seu-usuario/nome-do-repositorio.git
+   ```
+2. Abra o arquivo index.html no seu navegador.
 
-Atributos:
+## 💡 Funcionalidades Finais
 
--genero
+- Cadastrar usuários.
+- Consultar e listar livros e revistas.
+- Realizar empréstimos e devoluções.
+- Persistência dos dados durante a execução (não há persistência em banco de dados, mas a lógica de controle é mantida na aplicação).
 
-Metodos:
+## 📝 Requisitos do Projeto
 
-+informacoes()
+Todos os requisitos definidos no projeto foram implementados:
 
+- Criação das classes com herança e encapsulamento.
+- Integração com API externa para listar acervo.
+- Implementação de operações de CRUD para itens do acervo e usuários.
+- Sistema de empréstimo e devolução funcional.
 
+## 📈 Próximos Passos
 
-Revista
+- Adicionar persistência em um banco de dados.
+- Implementar autenticação de usuários.
+- Melhorar a interface gráfica para torná-la mais amigável e responsiva.
 
-Atributos:
+## 🤝 Contribuições
 
--edicao
+Sinta-se à vontade para abrir uma *issue* ou enviar um *pull request* caso tenha sugestões de melhorias ou queira contribuir com o projeto!
 
-Metodos:
+---
 
-+informacoes()
-
-
-
-Crie uma classe Usuario com os seguintes atributos:
-
-
-
-Atributos:
-
--nome
-
--registroAcademico
-
--dataNascimento (no formato "YYYY-MM-DD") ex. (1995-12-25)
-
-
-
-Crie uma classe Biblioteca com os seguintes atributos:
-
-
-
-Atributos:
-
--acervo: array para armazenar as entidades bibliográficas
-
--usuarios: array para armazenar os usuários
-
-
-
-Métodos:
-
-+adicionarItem(item): Adiciona uma entidade bibliográfica ao acervo.
-
-+listarAcervo(): Exibe o acervo da biblioteca.
-
-+adicionarUsuario(usuario): Adiciona um usuário à biblioteca.
-
-+emprestarItem(codigo, registroAcademico): Empréstimo de um item para um usuário.
-
-+devolverItem(codigo): Devolução de um item ao acervo.
-
-
-
-
-
-Realize uma série de operações, como adicionar itens, adicionar usuários, emprestar e devolver itens, e listar o acervo para garantir que todo o sistema funcione corretamente:
-
-
-
-Para iniciar as operações, instancie os objetos a seguir:
-
-Crie 1 objeto biblioteca
-
-Crie 5 objetos Usuarios
-
-
-
-Instancie Livros e Revista a partir da api:
-
-https://api-biblioteca-mb6w.onrender.com/acervo
-
-ou alguma api de sua preferencia que supra os atributos elencados.
-
+**Desenvolvido por fe1ipesena**
